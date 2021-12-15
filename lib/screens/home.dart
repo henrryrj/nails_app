@@ -134,7 +134,7 @@ class HomePageState extends State<HomePage> {
     FutureBuilder<dynamic>(
         future: ImageHandler.im.getPrice(image),
         builder: (context, snapshot){
-          if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.done) {
               print(snapshot);
               return Text(
                   snapshot.data.toString(),
@@ -142,7 +142,7 @@ class HomePageState extends State<HomePage> {
               );
           } else {
               print("No hay información");
-              return Text("Sin data");
+              return snapshot.data;
           }
         },
         initialData: Center(child: CircularProgressIndicator()),

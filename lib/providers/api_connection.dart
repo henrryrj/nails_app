@@ -1,13 +1,15 @@
-import 'dart:typed_data';
 
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:http_parser/http_parser.dart';
+import 'package:nails_app/utilities/general/file-path-provider.dart';
 
 
 class ApiConnection {
 
-  final String baseUrl = "www.loquesea.com";
-  final String apiVersion = "/v1/";
+  final String baseUrl = "nailprice.herokuapp.com";
+  final String baseTest = "127.0.0.1:5500";
 
   //Singleton Pattern para el constructor
   ApiConnection();
@@ -16,23 +18,38 @@ class ApiConnection {
   //post method
   Future<dynamic> getPrice(Uint8List image) async {
 
-    String methodUrl = apiVersion + "post/image/return/price";
+    String methodUrl = "predict";
     try {
-      Future.delayed(Duration(seconds: 5));
+
+      String name = "image0001";
+      String extensionFile = "jpg";
+      File imageFile = await FilePathProvider.getFile(image, name, extensionFile);
+      var filename = imageFile.path;
+
+      // open a bytestream
+      var stream = imageFile.readAsBytes().asStream();
+      // get file length
+      var length = imageFile.lengthSync();
+
       Uri uri = Uri.https(baseUrl, methodUrl);
-      final bytes = image.toList();
-      final response = await http.post(
-          uri,
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode(<String, List<int>>{
-            'image': bytes,
-          }),
+      var request = http.MultipartRequest('POST', uri);
+
+      // multipart that takes file
+      var multipartFile = new http.MultipartFile(
+          'image',
+          stream,
+          length,
+          filename: filename.split("/").last,
+        contentType: MediaType('multipart','form-data')
       );
-      Map data = jsonDecode(response.body);
-      print(data);
-      return data;
+
+      // add file to multipart
+      request.files.add(multipartFile);
+
+      var response = await request.send();
+      print(response);
+      if (response.statusCode == 200) print('Uploaded!');
+      return response;
 
     } catch(e) {
       print(e);
