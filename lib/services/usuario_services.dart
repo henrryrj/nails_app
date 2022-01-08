@@ -7,9 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:nails_app/models/usuario_models.dart';
 
 class ClienteService extends ChangeNotifier {
-  final String _baseUrlBd = 'https://nails-app-8cc9b-default-rtdb.firebaseio.com';
+  final String _baseUrlBd = 'naills-app-default-rtdb.firebaseio.com';
   final String _baseUrlAuth = 'identitytoolkit.googleapis.com';
-  final String _fireToken = 'AIzaSyDJFtxAHu5A3we_Y7zaJi6tJc1Ca1yOgTw';
+  final String _fireToken = 'AIzaSyBbj31YMa11Ft18hAr1VrTNfpkZsXxIiHs';
   final DatabaseReference _dbUsuario = FirebaseDatabase.instance.reference();
   Cliente usuario = new Cliente();
   final storage = new FlutterSecureStorage();
@@ -38,7 +38,7 @@ class ClienteService extends ChangeNotifier {
       final Map<String, dynamic> resultado = json.decode(resp.body);
       _dbUsuario
           .child('usuario')
-          .child(resultado['localId'])
+          .child(resultado[ 'localId'])
           .set(usuarioNuevo.toMap());
       print(resultado['localId']);
       if (resultado.containsKey(resultado['idToken'])) {
