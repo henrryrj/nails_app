@@ -6,7 +6,6 @@ class PrimaryTheme {
   static ThemeData get lightTheme { //1
     return ThemeData( //2
         primaryColor: MyColors.PrimaryColor,
-        accentColor: MyColors.AccentColor,
         primaryColorDark: MyColors.DarkPrimaryColor,
         backgroundColor: Colors.white,
         primaryColorLight: MyColors.LightPrimaryColor,

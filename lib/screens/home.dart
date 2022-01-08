@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:nails_app/models/nail_design.dart';
 import 'package:nails_app/providers/image_handler.dart';
 import 'package:nails_app/utilities/themes/colors/MyColors.dart';
 import 'package:nails_app/widgets/general/appbar.dart';

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "570334331890",
+    "project_id": "nails-app-8cc9b",
+    "storage_bucket": "nails-app-8cc9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570334331890:android:43dc2d9dd791c14af6616b",
+        "android_client_info": {
+          "package_name": "com.sw2Final.nails_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570334331890-7b60pqfh0kc536bgapkqrmoga9482b0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjCMIi3-s4n1zmWfDWMDisHa4XAxc_XbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570334331890-7b60pqfh0kc536bgapkqrmoga9482b0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
