@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "131718931252",
+    "project_id": "naillsfinal",
+    "storage_bucket": "naillsfinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131718931252:android:6af4951080c5d35ba9bb61",
+        "android_client_info": {
+          "package_name": "com.example.nails_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131718931252-tflnu583kjn7pjh1qc4jnecco27sk6ng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyW_DeQGp0aWhpXCHqPge3aPqn2AOnZJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131718931252-tflnu583kjn7pjh1qc4jnecco27sk6ng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
