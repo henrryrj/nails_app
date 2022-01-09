@@ -19,11 +19,11 @@ class ImageHandler {
     XFile pickedFile;
     try {
       if (fromGallery) {
-        pickedFile = (await imagePicker.pickImage(source: ImageSource.gallery, imageQuality: 60))!;
+        pickedFile = (await imagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50))!;
       }
       //si no es con la galeria, es con la camara
       else {
-        pickedFile = (await imagePicker.pickImage(source: ImageSource.camera, imageQuality: 60, preferredCameraDevice: CameraDevice.rear))!;
+        pickedFile = (await imagePicker.pickImage(source: ImageSource.camera, imageQuality: 50, preferredCameraDevice: CameraDevice.rear))!;
       }
       return pickedFile.readAsBytes();
     } catch (e) {

@@ -80,6 +80,11 @@ class HomePageState extends State<HomePage> {
   }
 
   void setImage(context,bool fromGallery) async{
+
+    /*
+    * Añadir:
+    * Controlar cuando no seleccione ni una imagen y me vuelva sin nada
+    * */
     Uint8List bytes = await ImageHandler.im.getImage(fromGallery);
     setState(() {
       this.image = bytes;
