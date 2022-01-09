@@ -22,25 +22,24 @@ class ApiConnection {
           await FilePathProvider.getFile(image, name, extensionFile);
       var filename = imageFile.path;
 
-      // open a bytestream
-      var stream = imageFile.readAsBytes().asStream();
-      // get file length
-      var length = imageFile.lengthSync();
+      //File imageFile = await FilePathProvider.getFile(image, name, extensionFile);
+      //var stream = imageFile.readAsBytes().asStream();
+      //var length = imageFile.lengthSync();
 
-      Uri uri = Uri.https(baseUrl, methodUrl);
+      //Uri uri = Uri.https(baseUrl, methodUrl);
+      Uri uri = Uri.http(baseUrl, methodUrl);
       var request = http.MultipartRequest('POST', uri);
 
-      // multipart that takes file
-      var multipartFile = new http.MultipartFile('image', stream, length,
-          filename: filename.split("/").last,
-          contentType: MediaType('multipart', 'form-data'));
+      //METODO PARA SUBIR LA IMAGEN
+      var multipartFile = new http.MultipartFile.fromBytes('image', image,
+          filename: filename, contentType: MediaType('multipart', 'form-data'));
 
       // add file to multipart
       request.files.add(multipartFile);
 
       var response = await request.send();
       print(response);
-      if (response.statusCode == 200) print('Uploaded!');
+      if (response.statusCode == 200) print('FOTO SUBIDA PAPACHO MIRA LA CONSOLA');
       return response;
     } catch (e) {
       print(e);

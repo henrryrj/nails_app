@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nails_app/models/usuario_models.dart';
 import 'package:nails_app/providers/cliente.dart';
 import 'package:nails_app/screens/rutas.dart';
 import 'package:nails_app/services/usuario_services.dart';
@@ -89,7 +88,6 @@ class _FromUsuario extends StatefulWidget {
 
 class _FromUsuarioState extends State<_FromUsuario> {
   bool _visibilidad = true;
-  String? _valorInicial;
   @override
   Widget build(BuildContext context) {
     final userForm = Provider.of<ClienteProvider>(context);

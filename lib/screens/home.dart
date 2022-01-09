@@ -2,10 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:nails_app/providers/image_handler.dart';
-import 'package:nails_app/services/usuario_services.dart';
 import 'package:nails_app/utilities/themes/colors/MyColors.dart';
 import 'package:nails_app/widgets/general/appbar.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -32,7 +30,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final userService = Provider.of<ClienteService>(context, listen: false);
+    //final userService = Provider.of<ClienteService>(context, listen: false);
     return Scaffold(
       backgroundColor: MyColors.DividerColor,
       appBar: MyAppBar(title: widget.title, height: 55),
@@ -79,8 +77,10 @@ class HomePageState extends State<HomePage> {
   void setImage(context, bool fromGallery) async {
     Uint8List bytes = await ImageHandler.im.getImage(fromGallery);
     setState(() {
-      this.image = bytes;
-      this.isImagePicked = true;
+      if (bytes.length > 0) {
+        this.image = bytes;
+        this.isImagePicked = true;
+      }
     });
     Navigator.of(context).pop();
   }
@@ -89,24 +89,28 @@ class HomePageState extends State<HomePage> {
     return Center(
       child: isImagePicked
           ? Container(
-              width: 250,
-              height: 250,
+              width: 300,
+              height: 300,
               padding: new EdgeInsets.all(5.0),
               margin: new EdgeInsets.all(2.0),
               child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0)),
                   child: Column(children: [
-                    Container(
-                      padding: new EdgeInsets.all(20.0),
-                      child: Image.memory(
-                        this.image,
-                        width: 150,
-                        height: 150,
-                        fit: BoxFit.fitWidth,
+                    Expanded(
+                      child: Container(
+                        padding: new EdgeInsets.all(20.0),
+                        child: Expanded(
+                          child: Image.memory(
+                            this.image,
+                            width: 600,
+                            height: 600,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
                       ),
                     ),
-                    getPrice(context)
+                    Container(child: getPrice(context))
                   ])),
             )
           : Container(
@@ -128,12 +132,12 @@ class HomePageState extends State<HomePage> {
       future: ImageHandler.im.getPrice(image),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          print(snapshot);
-          return Text(snapshot.data.toString(),
+          print('RESPUESTA DE GET_PRICE: ${snapshot.data.price}');
+          return Text(snapshot.data.price.toString(),
               style: TextStyle(fontSize: 18.0));
         } else {
           print("No hay información");
-          return snapshot.data;
+          return Container(child: Text('No hay informacion'));
         }
       },
       initialData: Center(child: CircularProgressIndicator()),

@@ -85,7 +85,7 @@ class ClienteService extends ChangeNotifier {
     await storage.delete(key: 'tokenUsuario');
   }
 
-  Future<String> redToden() async {
+  Future<String> readToken() async {
     return await storage.read(key: 'tokenUsuario') ?? '';
   }
 }

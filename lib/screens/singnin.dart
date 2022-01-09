@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:nails_app/models/usuario_models.dart';
 import 'package:nails_app/providers/login.dart';
 import 'package:nails_app/screens/rutas.dart';
 
