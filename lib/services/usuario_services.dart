@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:nails_app/models/usuario_models.dart';
 
 class ClienteService extends ChangeNotifier {
-  final String _baseUrlBd = 'naills-app-default-rtdb.firebaseio.com';
+  final String _baseUrlBd = 'naillsfinal-default-rtdb.firebaseio.com';
   final String _baseUrlAuth = 'identitytoolkit.googleapis.com';
-  final String _fireToken = 'AIzaSyBbj31YMa11Ft18hAr1VrTNfpkZsXxIiHs';
+  final String _fireToken = 'AIzaSyAyW_DeQGp0aWhpXCHqPge3aPqn2AOnZJ8';
   final DatabaseReference _dbUsuario = FirebaseDatabase.instance.reference();
   Cliente usuario = new Cliente();
   final storage = new FlutterSecureStorage();
@@ -36,10 +36,9 @@ class ClienteService extends ChangeNotifier {
           Uri.https(_baseUrlAuth, '/v1/accounts:signUp', {'key': _fireToken});
       final resp = await http.post(url, body: json.encode(authData));
       final Map<String, dynamic> resultado = json.decode(resp.body);
-      _dbUsuario
-          .child('usuario')
-          .child(resultado[ 'localId'])
-          .set(usuarioNuevo.toMap());
+      print(resultado['localId']);
+      print(usuarioNuevo.toMap());
+      _dbUsuario.child('usuario').child(resultado['localId']).set(usuarioNuevo.toMap());
       print(resultado['localId']);
       if (resultado.containsKey(resultado['idToken'])) {
         await storage.write(key: 'tokenUsuario', value: resultado['idToken']);
@@ -71,6 +70,7 @@ class ClienteService extends ChangeNotifier {
           {'auth': await storage.read(key: 'tokenUsuario') ?? ''});
       final resp = await http.get(url);
       final Map<String, dynamic> usuariosMap = json.decode(resp.body);
+      print(usuariosMap);
       usuario = Cliente.fromMap(usuariosMap);
     } else {
       if (resultado['error']['message'] == 'EMAIL_NOT_FOUND') {

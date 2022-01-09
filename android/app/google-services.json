@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "140940573917",
-    "firebase_url": "https://naills-app-default-rtdb.firebaseio.com",
-    "project_id": "naills-app",
-    "storage_bucket": "naills-app.appspot.com"
+    "project_number": "131718931252",
+    "project_id": "naillsfinal",
+    "storage_bucket": "naillsfinal.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:140940573917:android:01303186b695e6ca42af34",
+        "mobilesdk_app_id": "1:131718931252:android:6af4951080c5d35ba9bb61",
         "android_client_info": {
-          "package_name": "com.sw2Final.nails_app"
+          "package_name": "com.example.nails_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "140940573917-6id8t3sh185g7qnca7au8tj8d1k8un42.apps.googleusercontent.com",
+          "client_id": "131718931252-tflnu583kjn7pjh1qc4jnecco27sk6ng.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCefrjzpDUeWxjZw65rQ5XIT6hKP7OylXQ"
+          "current_key": "AIzaSyAyW_DeQGp0aWhpXCHqPge3aPqn2AOnZJ8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "140940573917-6id8t3sh185g7qnca7au8tj8d1k8un42.apps.googleusercontent.com",
+              "client_id": "131718931252-tflnu583kjn7pjh1qc4jnecco27sk6ng.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

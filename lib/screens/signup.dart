@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nails_app/models/usuario_models.dart';
@@ -11,7 +10,6 @@ class SignupScreem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final usuarioFrom = Provider.of<ClienteService>(context);
-    usuarioFrom.usuario;
     return ChangeNotifierProvider(
         create: (_) => ClienteProvider(usuarioFrom.usuario),
         child: _SignupScrenBody(userService: usuarioFrom));
@@ -124,7 +122,6 @@ class _FromUsuarioState extends State<_FromUsuario> {
               }
             },
           ),
-
           Text(
             'Apellido',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
@@ -136,7 +133,7 @@ class _FromUsuarioState extends State<_FromUsuario> {
                 border: InputBorder.none,
                 fillColor: Color(0xfff3f3f4),
                 filled: true),
-            onChanged: (value) => userNuevo.nombre = value,
+            onChanged: (value) => userNuevo.apellido = value,
             validator: (value) {
               if (value != null && value.length > 0) {
                 return null;
@@ -145,19 +142,22 @@ class _FromUsuarioState extends State<_FromUsuario> {
               }
             },
           ),
-
           Text(
             'Celula de identidad',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
           Padding(padding: const EdgeInsets.only(top: 10)),
           TextFormField(
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
                 border: InputBorder.none,
                 fillColor: Color(0xfff3f3f4),
                 filled: true),
-            onChanged: (value) => userNuevo.nombre = value,
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                userNuevo.telefono = int.parse(value);
+              }
+            },
             validator: (value) {
               if (value != null && value.length > 0) {
                 return null;
@@ -233,7 +233,6 @@ class _FromUsuarioState extends State<_FromUsuario> {
               }
             },
           ),
-
           Text(
             'Contraseña',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
@@ -307,13 +306,19 @@ class _FromUsuarioState extends State<_FromUsuario> {
                 onPressed: () async {
                   FocusScope.of(context).unfocus();
                   if (!userForm.esValidadoElFrom()) return;
-                  if (userNuevo.direccion != "-Selecionar-" &&
-                      userNuevo.direccion!.length > 0) {
+                  if (userNuevo.direccion!.length > 0) {
                     userForm.estaRegistrado = true;
+                    userNuevo.lat = "xd";
+                    userNuevo.lon = "xd";
+                    userNuevo.precio = "-1";
+                    userNuevo.urlImg = "fotoAqui";
+                    userNuevo.createdAt = "hoy";
+                    userNuevo.updatedAt = "mas tarde";
+                    userNuevo.deletedAt = "pasado";
                     final String? respuesta =
                         await userService.crearUsuario(userNuevo);
                     if (respuesta == null) {
-                    await Future.delayed(Duration(seconds: 2));
+                      await Future.delayed(Duration(seconds: 2));
                       Navigator.pushReplacementNamed(context, 'signin');
                     } else {
                       showDialog(
@@ -336,7 +341,6 @@ class _FromUsuarioState extends State<_FromUsuario> {
                                       })
                                 ],
                               ));
-                      ;
                       userForm.estaRegistrado = false;
                     }
                   } else {

@@ -6,7 +6,6 @@ import 'dart:convert';
 
 class Cliente {
   Cliente({
-    this.id,
     this.nombre,
     this.apellido,
     this.ci,
@@ -15,14 +14,14 @@ class Cliente {
     this.lat,
     this.lon,
     this.email,
+    this.pass,
     this.precio,
     this.urlImg,
     this.createdAt,
-    this.updtedAt,
-    this.deletaAt,
+    this.updatedAt,
+    this.deletedAt,
   });
 
-  int? id;
   String? nombre;
   String? apellido;
   int? ci;
@@ -35,15 +34,14 @@ class Cliente {
   String? precio;
   String? urlImg;
   String? createdAt;
-  String? updtedAt;
-  String? deletaAt;
+  String? updatedAt;
+  String? deletedAt;
 
   factory Cliente.fromJson(String str) => Cliente.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
   factory Cliente.fromMap(Map<String, dynamic> json) => Cliente(
-        id: json["id"],
         nombre: json["nombre"],
         apellido: json["apellido"],
         ci: json["ci"],
@@ -52,15 +50,15 @@ class Cliente {
         lat: json["lat"],
         lon: json["lon"],
         email: json["email"],
+        pass: json["pass"],
         precio: json["precio"],
-        urlImg: json["url_img"],
-        createdAt: json["created_at"],
-        updtedAt: json["updted_at"],
-        deletaAt: json["deleta_at"],
+        urlImg: json["urlImg"],
+        createdAt: json["createdAt"],
+        updatedAt: json["updatedAt"],
+        deletedAt: json["deletedAt"],
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
         "nombre": nombre,
         "apellido": apellido,
         "ci": ci,
@@ -69,10 +67,11 @@ class Cliente {
         "lat": lat,
         "lon": lon,
         "email": email,
+        "pass": pass,
         "precio": precio,
-        "url_img": urlImg,
-        "created_at": createdAt,
-        "updted_at": updtedAt,
-        "deleta_at": deletaAt,
+        "urlImg": urlImg,
+        "createdAt": createdAt,
+        "updatedAt": updatedAt,
+        "deletedAt": deletedAt,
       };
 }
