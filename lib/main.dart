@@ -41,6 +41,7 @@ class _MyAppState extends StatelessWidget {
           'home': (_) => HomePage(title: title),
           'signin': (_) => SigninScreem(),
           'signup': (_) => SignupScreem(),
+          'perfil': (_) => Perfil(),
         });
   }
 }

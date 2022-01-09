@@ -52,10 +52,10 @@ class Cliente {
         email: json["email"],
         pass: json["pass"],
         precio: json["precio"],
-        urlImg: json["urlImg"],
-        createdAt: json["createdAt"],
-        updatedAt: json["updatedAt"],
-        deletedAt: json["deletedAt"],
+        urlImg: json["url_img"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+        deletedAt: json["deleted_at"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -69,9 +69,9 @@ class Cliente {
         "email": email,
         "pass": pass,
         "precio": precio,
-        "urlImg": urlImg,
-        "createdAt": createdAt,
-        "updatedAt": updatedAt,
-        "deletedAt": deletedAt,
+        "url_img": urlImg,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+        "deleted_at": deletedAt,
       };
 }

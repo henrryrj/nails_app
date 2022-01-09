@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:nails_app/services/usuario_services.dart';
+import 'package:provider/provider.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
-
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final String title;
-  const MyAppBar(
-      {
-        Key? key,
-        required this.title,
-        required this.height
-      }) : super(key: key);
+  const MyAppBar({Key? key, required this.title, required this.height})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userService = Provider.of<ClienteService>(context, listen: false);
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Text(title),
       actions: <Widget>[
         IconButton(
@@ -25,16 +24,20 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
           onPressed: () {},
         ),
         IconButton(
-          icon: Icon(
+            icon: Icon(
               Icons.account_circle_sharp,
               color: Colors.white,
-          ),
-          tooltip: 'Login',
-          onPressed: () {},
-        ),
+            ),
+            tooltip: 'perfil',
+            onPressed: () => Navigator.pushNamed(context, 'perfil')),
+             IconButton(
+              onPressed: () {
+                userService.logout();
+                Navigator.pushReplacementNamed(context, 'signin');
+              },
+              icon: Icon(Icons.login_outlined))
       ],
       elevation: 100.0,
-      brightness: Brightness.dark,
     );
   }
 

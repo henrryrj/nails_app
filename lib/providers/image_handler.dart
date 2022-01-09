@@ -28,7 +28,7 @@ class ImageHandler {
     } catch (e) {
       
     }
-    return Uint8List(0);
+    return Uint8List(0); //convertir al string :c 
   }
 
 
