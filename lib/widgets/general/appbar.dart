@@ -12,6 +12,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final userService = Provider.of<ClienteService>(context, listen: false);
     return AppBar(
+      backgroundColor: Color(0xff00838f),
       automaticallyImplyLeading: false,
       title: Text(title),
       actions: <Widget>[

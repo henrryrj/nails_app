@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nails_app/models/nail_design.dart';
 import 'package:nails_app/providers/api_connection.dart';

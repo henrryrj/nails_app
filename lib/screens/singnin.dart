@@ -189,13 +189,14 @@ class _EmailPassState extends State<_EmailPass> {
                           final userService = Provider.of<ClienteService>(
                               context,
                               listen: false);
+                              
                           if (!signinForm.esValidadoElFrom()) return;
                           final String? respuesta = await userService.login(
                               signinForm.email, signinForm.pass);
                           if (respuesta == null) {
                             signinForm.estaLogueado = true;
                             userService.estaLogueado = true;
-                            await Future.delayed(Duration(seconds: 2));
+                            await Future.delayed(Duration(seconds: 1));
                             Navigator.pushReplacementNamed(context, 'home');
                           } else {
                             showDialog(

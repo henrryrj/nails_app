@@ -153,7 +153,7 @@ class _FromUsuarioState extends State<_FromUsuario> {
                 filled: true),
             onChanged: (value) {
               if (value.isNotEmpty) {
-                userNuevo.telefono = int.parse(value);
+                userNuevo.ci = int.parse(value);
               }
             },
             validator: (value) {
@@ -306,13 +306,15 @@ class _FromUsuarioState extends State<_FromUsuario> {
                   if (!userForm.esValidadoElFrom()) return;
                   if (userNuevo.direccion!.length > 0) {
                     userForm.estaRegistrado = true;
-                    userNuevo.lat = "xd";
-                    userNuevo.lon = "xd";
-                    userNuevo.precio = "-1";
+                    userNuevo.lat = 100;
+                    userNuevo.lon = 100;
+                    userNuevo.precio = -1;
                     userNuevo.urlImg = "fotoAqui";
-                    userNuevo.createdAt = "hoy";
-                    userNuevo.updatedAt = "mas tarde";
-                    userNuevo.deletedAt = "pasado";
+                    userNuevo.createdAt =
+                        userService.formatFecha(DateTime.now().toString());
+                    userNuevo.updatedAt =
+                        userService.formatFecha(DateTime.now().toString());
+                    userNuevo.deletedAt = "-1";
                     final String? respuesta =
                         await userService.crearUsuario(userNuevo);
                     if (respuesta == null) {

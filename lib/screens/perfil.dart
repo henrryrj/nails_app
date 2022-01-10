@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nails_app/providers/preferencias.dart';
 import 'package:nails_app/services/usuario_services.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,16 @@ class Perfil extends StatelessWidget {
             ),
             Padding(padding: const EdgeInsets.only(top: 10)),
             Text(
+              'Nombre : ${user.apellido}',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            Padding(padding: const EdgeInsets.only(top: 10)),
+            Text(
+              'Carnet : ${user.ci}',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            Padding(padding: const EdgeInsets.only(top: 10)),
+            Text(
               'Telefono : ${user.telefono}',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
@@ -36,7 +47,6 @@ class Perfil extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             Padding(padding: const EdgeInsets.only(top: 10)),
-           
           ],
         ),
       ),

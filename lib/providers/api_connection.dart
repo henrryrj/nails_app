@@ -14,7 +14,7 @@ class ApiConnection {
 
   //post method
   Future<dynamic> getPrice(Uint8List image) async {
-    String methodUrl = "predict";
+    String  methodUrl = "predict";
     try {
       String name = "image0001";
       String extensionFile = ".jpg";

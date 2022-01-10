@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nails_app/providers/preferencias.dart';
 import 'package:nails_app/screens/rutas.dart';
 import 'package:nails_app/services/usuario_services.dart';
 import 'package:provider/provider.dart';
@@ -10,17 +11,17 @@ import 'package:provider/provider.dart';
 import 'blocs/gps/gps_bloc.dart';
 import 'blocs/location/location_bloc.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+  await PrefUser.init();
   Firebase.initializeApp().then((value) {
     runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider(create: (context) => GpsBloc()),
-      BlocProvider(create: (context) => LocationBloc()),
-    ],
-    child: const MyApp(),
-  ));
+      providers: [
+        BlocProvider(create: (context) => GpsBloc()),
+        BlocProvider(create: (context) => LocationBloc()),
+      ],
+      child: const MyApp(),
+    ));
   });
 }
 
