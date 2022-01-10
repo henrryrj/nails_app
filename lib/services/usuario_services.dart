@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:nails_app/models/salon.dart';
 import 'package:nails_app/models/usuario_models.dart';
 import 'package:nails_app/providers/preferencias.dart';
 import 'package:nails_app/utilities/general/file-path-provider.dart';
@@ -16,6 +18,7 @@ class ClienteService extends ChangeNotifier {
   final String _baseUrlBd = 'naillsfinal-default-rtdb.firebaseio.com';
   final String _baseUrlAuth = 'identitytoolkit.googleapis.com';
   final String _fireToken = 'AIzaSyAyW_DeQGp0aWhpXCHqPge3aPqn2AOnZJ8';
+  final String _urlIa = '147.182.180.128';
   final DatabaseReference _dbUsuario = FirebaseDatabase.instance.reference();
   Cliente usuario = new Cliente();
   final storage = new FlutterSecureStorage();
@@ -30,15 +33,16 @@ class ClienteService extends ChangeNotifier {
   }
   bool _logueado = false;
   bool _loading = false;
-  bool _soli = false;
+  bool soli = false;
   bool get estaLogueado => _logueado;
-  bool get estaSoliOk => _soli;
+  bool get estaSoliOk => soli;
   set estaLogueado(bool valor) {
     this._logueado = valor;
     notifyListeners();
   }
+
   set soliOk(bool valor) {
-    this._soli = valor;
+    this.soli = valor;
     notifyListeners();
   }
 
@@ -118,6 +122,7 @@ class ClienteService extends ChangeNotifier {
       final Map<String, dynamic> usuariosMap = json.decode(resp.body);
       print('SEGUIMOS LOGUEADOS LOGIN WUWU');
       print('PRE_ID: ${PrefUser.id}');
+      if (usuariosMap['error'] == "Auth token is expired") logout();
       usuario = Cliente.fromMap(usuariosMap);
       print(usuariosMap);
     }
@@ -127,20 +132,19 @@ class ClienteService extends ChangeNotifier {
 //CONSUMIENDO APIS
   Future<int?> getSolicitud(Cliente cliente, Uint8List image) async {
     if (image.length > 0) {
-      String urlSolicitud = '147.182.180.128';
       String name = "image0001";
       String extensionFile = ".jpg";
       File imageFile =
           await FilePathProvider.getFile(image, name, extensionFile);
       var filename = imageFile.path;
-      final url = Uri.http(urlSolicitud, '/api/v1/solicitar');
+      final url = Uri.http(_urlIa, '/api/v1/solicitar');
       final req = await http.post(url,
           body: cliente.toJsonSolicitud(),
           headers: {'Content-Type': 'application/json'});
       final resp = json.decode(req.body);
       int id = resp['id'] as int;
       // SEGUNDA PETICION
-      final url2 = Uri.http(urlSolicitud, '/api/v1/solicitar/$id');
+      final url2 = Uri.http(_urlIa, '/api/v1/solicitar/$id');
       var req2 = http.MultipartRequest('POST', url2);
       //AGREGAR FOTO
       var multipartFile = new http.MultipartFile.fromBytes('image', image,
@@ -151,8 +155,18 @@ class ClienteService extends ChangeNotifier {
       Solicitud soli = Solicitud.fromJsonSolicitud(res2);
       return soli.precio;
     }
+  }
 
-    //final resp = json.decode(respuesta.body);
+  Future<List<Salon>> listaDeSalones() async {
+    List<Salon> listaSalon = [];
+    final url = Uri.http(_urlIa, '/api/v1/salones');
+    final respuesta = await http.get(url);
+    final Map<String, dynamic> resp = json.decode(respuesta.body);
+    for (var nodo in resp['data']) {
+      Salon salonActual = Salon.fromMap(nodo);
+      listaSalon.add(salonActual);
+    }
+    return listaSalon;
   }
 
   String formatFecha(String date) {
@@ -161,22 +175,4 @@ class ClienteService extends ChangeNotifier {
     var year = fecha.split('-');
     return '${year[2]}-${year[1]}-${year[0]} $hora';
   }
-
-  /* void clienteService() async {
-    if (prefs.containsKey('tokenUsuario')) {
-      _logueado = true;
-      _loading = false;
-      prefs.setString('nombre', usuario.nombre!);
-      prefs.setString('apellido', usuario.apellido!);
-      prefs.setInt('ci', usuario.ci!);
-      prefs.setInt('telefono', usuario.telefono!);
-      prefs.setString('direccion', usuario.direccion!);
-      prefs.setInt('lat', usuario.lat!);
-      prefs.setInt('lon', usuario.lon!);
-      prefs.setString('email', usuario.email!);
-    } else {
-      _loading = true;
-      prefs.clear();
-    }
-  } */
 }

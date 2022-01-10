@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nails_app/providers/preferencias.dart';
+import 'package:nails_app/screens/lista_salon.dart';
 import 'package:nails_app/screens/rutas.dart';
 import 'package:nails_app/services/usuario_services.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,8 @@ class _MyAppState extends StatelessWidget {
           'signin': (_) => SigninScreem(),
           'signup': (_) => SignupScreem(),
           'perfil': (_) => Perfil(),
-          'veriToken': (_) => CheckAuthScreen()
+          'veriToken': (_) => CheckAuthScreen(),
+          'listaSalon': (_) => ListaSalonesScreen()
         });
   }
 }

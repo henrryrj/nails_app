@@ -1,8 +1,7 @@
 import 'dart:typed_data';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nails_app/models/salon.dart';
 import 'package:nails_app/providers/image_handler.dart';
 import 'package:nails_app/screens/mapas/loading_screen.dart';
 import 'package:nails_app/services/usuario_services.dart';
@@ -22,15 +21,14 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   Uint8List image = Uint8List(0);
   bool isImagePicked = false;
+  bool soli = false;
   int selectedIndex = 0;
 
   List<Widget> widgetOptions = <Widget>[
     //Index 0: Saved Designs
     LoadingScreen(),
     //Index 1: Home
-    Center(child: Text('Home')),
-    //Index 2: My Places
-    Center(child: Text('My Places')),
+    Center(child: Text('Solicitudes')),
   ];
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -64,12 +62,8 @@ class HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.bookmarks_rounded),
-            label: 'Favoritos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.gps_fixed),
+            label: 'Ubicacion',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.view_list_rounded),
@@ -148,7 +142,9 @@ class HomePageState extends State<HomePage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0))),
                 onPressed: () async {
-                    clienteService.soliOk = true;
+                  this.soli = true;
+                  setState(() {});
+                  await Future.delayed(Duration(seconds: 1));
                   int? precio =
                       await clienteService.getSolicitud(cliente, this.image);
                   print('PRECIO: $precio');
@@ -177,13 +173,28 @@ class HomePageState extends State<HomePage> {
                                       this.isImagePicked = !this.isImagePicked;
                                       setState(() {});
                                       Navigator.of(context).pop();
+                                    }),
+                                CupertinoDialogAction(
+                                    child: Text('Ver Salones',
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            letterSpacing: 1.5,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold)),
+                                    onPressed: () async {
+                                      Navigator.pushNamed(
+                                          context, 'listaSalon');
                                     })
                               ],
                             ));
+                    this.soli = false;
+                    setState(() {});
                   }
+                  setState(() {});
                 },
                 child: Text(
-                  'Solicitar precio',
+                  this.soli ? 'Espere...' : 'Solicitar precio',
                   style: TextStyle(
                       color: Colors.white,
                       letterSpacing: 1.5,
