@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:nails_app/models/errror.dart';
 import 'package:nails_app/models/salon.dart';
 import 'package:nails_app/models/usuario_models.dart';
 import 'package:nails_app/providers/preferencias.dart';
@@ -131,6 +132,7 @@ class ClienteService extends ChangeNotifier {
 
 //CONSUMIENDO APIS
   Future<int?> getSolicitud(Cliente cliente, Uint8List image) async {
+    int precio = 0;
     if (image.length > 0) {
       String name = "image0001";
       String extensionFile = ".jpg";
@@ -151,9 +153,17 @@ class ClienteService extends ChangeNotifier {
           filename: filename, contentType: MediaType('multipart', 'form-data'));
       req2.files.add(multipartFile);
       var resp2 = await req2.send();
-      final res2 = await resp2.stream.bytesToString();
-      Solicitud soli = Solicitud.fromJsonSolicitud(res2);
-      return soli.precio;
+      print(resp2.statusCode);
+      if (resp2.statusCode == 200) {
+        final res2 = await resp2.stream.bytesToString();
+        Solicitud soli = Solicitud.fromJsonSolicitud(res2);
+        print('RESPUESTA: ${soli.precio}');
+        precio = soli.precio!;
+      }
+      if (resp2.statusCode == 500) {
+        precio = -1;
+      }
+      return precio;
     }
   }
 

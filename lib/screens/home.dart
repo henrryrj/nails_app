@@ -148,7 +148,7 @@ class HomePageState extends State<HomePage> {
                   int? precio =
                       await clienteService.getSolicitud(cliente, this.image);
                   print('PRECIO: $precio');
-                  if (precio != null) {
+                  if (precio != -1) {
                     cliente.precio = precio;
                     showDialog(
                         context: context,
@@ -190,6 +190,33 @@ class HomePageState extends State<HomePage> {
                             ));
                     this.soli = false;
                     setState(() {});
+                  } else {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => AlertDialog(
+                              title: Text('Error! '),
+                              content: Text('No se detectaron uñas!!',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.blueGrey)),
+                              actions: [
+                                CupertinoDialogAction(
+                                    child: Text('Aceptar',
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            letterSpacing: 1.5,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold)),
+                                    onPressed: () {
+                                      this.isImagePicked = !this.isImagePicked;
+                                      setState(() {});
+                                      Navigator.of(context).pop();
+                                    })
+                              ],
+                            ));
                   }
                   setState(() {});
                 },
