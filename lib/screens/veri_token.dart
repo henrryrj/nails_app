@@ -8,11 +8,17 @@ class CheckAuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = Provider.of<ClienteService>(context, listen: false);
     return Scaffold(
+      backgroundColor: Color(0xff4fb3bf),
       body: Center(
         child: FutureBuilder(
           future: authService.readToken(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (!snapshot.hasData) return Text('Espere');
+            if (!snapshot.hasData)
+              return Text('Cargando...',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.blueGrey));
 
             if (snapshot.data == '') {
               Future.microtask(() {

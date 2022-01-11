@@ -9,8 +9,6 @@ import 'package:nails_app/screens/rutas.dart';
 import 'package:nails_app/services/usuario_services.dart';
 import 'package:provider/provider.dart';
 
-import 'blocs/gps/gps_bloc.dart';
-import 'blocs/location/location_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

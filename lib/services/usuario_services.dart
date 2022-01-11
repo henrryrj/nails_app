@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,12 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:nails_app/models/errror.dart';
 import 'package:nails_app/models/salon.dart';
 import 'package:nails_app/models/usuario_models.dart';
 import 'package:nails_app/providers/preferencias.dart';
 import 'package:nails_app/utilities/general/file-path-provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ClienteService extends ChangeNotifier {
   final String _baseUrlBd = 'naillsfinal-default-rtdb.firebaseio.com';
@@ -33,7 +30,6 @@ class ClienteService extends ChangeNotifier {
     //this.cargarUsuarios();
   }
   bool _logueado = false;
-  bool _loading = false;
   bool soli = false;
   bool get estaLogueado => _logueado;
   bool get estaSoliOk => soli;

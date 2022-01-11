@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nails_app/providers/preferencias.dart';
 import 'package:nails_app/services/usuario_services.dart';
 import 'package:provider/provider.dart';
 

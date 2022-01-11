@@ -1,6 +1,4 @@
-import 'dart:ffi';
 
-import 'package:nails_app/models/usuario_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefUser {

@@ -1,4 +1,3 @@
-import 'dart:convert' as convert;
 
 import 'package:flutter/material.dart';
 import 'package:nails_app/models/salon.dart';
@@ -14,15 +13,11 @@ class ListaSalonesScreen extends StatefulWidget {
 }
 
 class _ListaSalonesScreenState extends State<ListaSalonesScreen> {
-  int _paginaActual = 0;
   List<Salon> salones = [];
-  List<CardSalon> _listaCardSalones = [];
 
   @override
   void initState() {
     super.initState();
-    final clienteService =
-        Provider.of<ClienteService>(context, listen: false);
   }
 
   @override

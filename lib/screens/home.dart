@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nails_app/models/salon.dart';
 import 'package:nails_app/providers/image_handler.dart';
 import 'package:nails_app/screens/mapas/loading_screen.dart';
 import 'package:nails_app/services/usuario_services.dart';
@@ -196,7 +195,7 @@ class HomePageState extends State<HomePage> {
                         barrierDismissible: false,
                         builder: (context) => AlertDialog(
                               title: Text('Error! '),
-                              content: Text('No se detectaron uñas!!',
+                              content: Text('No se detectaron uñas!, debe ingresar foto de diseño de uñas',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
