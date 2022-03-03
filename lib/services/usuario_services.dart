@@ -17,6 +17,7 @@ class ClienteService extends ChangeNotifier {
   final String _baseUrlAuth = 'identitytoolkit.googleapis.com';
   final String _fireToken = 'AIzaSyAyW_DeQGp0aWhpXCHqPge3aPqn2AOnZJ8';
   final String _urlIa = '147.182.180.128';
+  final String _urlSalon = '143.244.180.140';
   final DatabaseReference _dbUsuario = FirebaseDatabase.instance.reference();
   Cliente usuario = new Cliente();
   final storage = new FlutterSecureStorage();
@@ -165,7 +166,7 @@ class ClienteService extends ChangeNotifier {
 
   Future<List<Salon>> listaDeSalones() async {
     List<Salon> listaSalon = [];
-    final url = Uri.http(_urlIa, '/api/v1/salones');
+    final url = Uri.http(_urlSalon, '/api/v1/salones');
     final respuesta = await http.get(url);
     final Map<String, dynamic> resp = json.decode(respuesta.body);
     for (var nodo in resp['data']) {
